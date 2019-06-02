@@ -44,7 +44,7 @@ pipeline {
         }
 
         stage('Deploy') { 
-            agent Docker
+           // agent Docker
             steps {
                 echo " Deploy stage"
                  dir(artifacts){
