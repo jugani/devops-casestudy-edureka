@@ -48,6 +48,9 @@ pipeline {
             steps {
                 echo " Deploy stage"
                  dir('artifacts'){
+                     emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL to view the results.''', recipientProviders: [developers()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'cpb.95.2012@gmail.com'
                 //withMaven(maven: 'mymaven') {
                   //sh 'mvn package'                 }
              //} 
