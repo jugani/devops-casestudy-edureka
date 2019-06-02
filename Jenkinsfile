@@ -25,10 +25,12 @@ pipeline {
             steps {
              echo "Testing"  
              dir(artifacts){
-                withMaven(maven: 'mymaven') {
+                withMaven(maven: 'mymaven') 
+                {
                   //sh 'mvn test'                 }
-             } 
+                } 
              
+              }
             }
         }
         stage('Package') { 
