@@ -47,7 +47,7 @@ pipeline {
            // agent Docker
             steps {
                 echo " Deploy stage"
-                 dir(artifacts){
+                 dir('artifacts'){
                 //withMaven(maven: 'mymaven') {
                   //sh 'mvn package'                 }
              //} 
