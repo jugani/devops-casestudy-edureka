@@ -9,7 +9,7 @@ pipeline {
                 
             }
         }
-        tage('Test') { 
+        stage('Test') { 
             steps {
              echo "Testing"  
              dir('artifacts'){
