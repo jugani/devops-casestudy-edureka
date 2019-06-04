@@ -1,4 +1,4 @@
-pipeline {
+ipeline {
     agent any 
     stages {
         stage('GIT PUll') { 
@@ -9,53 +9,34 @@ pipeline {
                 
             }
         }
-        stage('Build and Sonar cube Analysis') { 
-            steps {
-             echo "Testing"  
-             dir('artifacts'){
-                withMaven(maven: 'mymaven') {
-                  sh 'mvn sonar:sonar -Dsonar.projectKey=devops-casestudy -Dsonar.host.url=http://35.200.254.182:9000 -Dsonar.login=571a21bbd37e72fe471a9dd4f5953b9a226b6744'                 }
-             } 
-             
-            }
-        }
-
-
-        stage('Test') { 
+        tage('Test') { 
             steps {
              echo "Testing"  
              dir('artifacts'){
                 withMaven(maven: 'mymaven') 
                 {
-                  //sh 'mvn test'                 }
+                  sh 'mvn test'
                 } 
              
               }
             }
-        }
-        stage('Package') { 
-            steps {
-                echo " Deploy stage"
-                // dir(artifacts){
-                //withMaven(maven: 'mymaven') {
-                 // sh 'mvn package'                 }
-             //} 
-            }
-        }
+             post {
+                always {
+                    junit '**/target/*-reports/TEST-*.xml'
 
-        stage('Deploy') { 
-           // agent Docker
-            steps {
-                echo " Deploy stage"
-                 dir('artifacts'){
-                     emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+                }
+           }
+       }
 
-Check console output at $BUILD_URL to view the results.''', recipientProviders: [developers()], subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'cpb.95.2012@gmail.com'
-                //withMaven(maven: 'mymaven') {
-                  //sh 'mvn package'                 }
-             //} 
+        stage('Build and Sonar cube Analysis') { 
+            steps {
+             echo "Static code analysis"  
+             dir('artifacts'){
+                withMaven(maven: 'mymaven') {
+                  sh 'mvn sonar:sonar -Dsonar.projectKey=devops-casestudy -Dsonar.host.url=http://localhost:9000 -Dsonar.login=5775ec7be686142a64e11b41bae4d5a94ca827bb'                 }
+             } 
+             
             }
         }
     }
-}
 }
