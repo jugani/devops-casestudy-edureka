@@ -57,6 +57,7 @@ pipeline {
              echo "SWriting docker file"  
              script{
                  echo "${WORKSPACE}"
+                 echo "${JENKINS_HOME}"
                  sh 'cp ${WORKSPACE}/artifacts/addressbook.jar .'
              }
         }
