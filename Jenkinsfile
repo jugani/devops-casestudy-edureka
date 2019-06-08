@@ -53,7 +53,7 @@ pipeline {
         }
     }
     stage('Containerize application') { 
-           agent docker
+        agent {docker}
             steps {
              echo "SWriting docker file"  
              script{
