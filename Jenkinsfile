@@ -53,12 +53,10 @@ pipeline {
         }
     }
     stage('Containerize application') { 
-        agent {docker}
-            steps {
-             echo "SWriting docker file"  
+      steps {
+             echo "Build the docker file"  
              script{
-                 echo "${WORKSPACE}"
-                 echo "${JENKINS_HOME}"
+                
                  sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
                  def customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
                  echo customImage
