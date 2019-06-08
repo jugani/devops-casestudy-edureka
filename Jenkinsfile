@@ -58,7 +58,7 @@ pipeline {
              script{
                  echo "${WORKSPACE}"
                  echo "${JENKINS_HOME}"
-                 sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/addressbook.jar .'
+                 sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.jar .'
              }
         }
     }
