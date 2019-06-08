@@ -55,7 +55,7 @@ pipeline {
             steps {
              echo "SWriting docker file"  
              script{
-
+                 echo "write script"
              }
         }
     }
