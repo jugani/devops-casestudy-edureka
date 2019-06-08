@@ -45,6 +45,7 @@ pipeline {
              dir('artifacts'){
                 withMaven(maven: 'mymaven') {
                   sh 'mvn compile' 
+                  sh 'mvn package'  
                
              } 
              
