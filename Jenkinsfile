@@ -39,6 +39,26 @@ pipeline {
             }
         }
     }
+    stage(' Compile & Package') { 
+            steps {
+             echo "Static code analysis"  
+             dir('artifacts'){
+                withMaven(maven: 'mymaven') {
+                  sh 'mvn compile' 
+               
+             } 
+             
+            }
+        }
+    }
+    stage('Containerize application') { 
+            steps {
+             echo "SWriting docker file"  
+             script{
+
+             }
+        }
+    }
 }
     post {  
           
