@@ -59,6 +59,7 @@ pipeline {
                  echo "${WORKSPACE}"
                  echo "${JENKINS_HOME}"
                  sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
+                 def customImage = docker.build("chandrapurnimabhatnagar/addressbook:${$BUILD_NUMBER}")
              }
         }
     }
