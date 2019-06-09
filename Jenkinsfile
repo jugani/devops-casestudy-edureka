@@ -1,7 +1,8 @@
 pipeline {
     agent any
-    def customImage 
+    
     stages {
+        def customImage 
         stage('GIT PUll') { 
             steps {
                 dir('artifacts'){
