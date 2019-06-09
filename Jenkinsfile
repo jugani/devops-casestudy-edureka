@@ -53,7 +53,7 @@ pipeline {
         }
     }
     stage('Containerize application') { 
-        agent { label 'docker' }
+        //agent { label 'docker' }
       steps {
              echo "Build the docker file"  
              script{
