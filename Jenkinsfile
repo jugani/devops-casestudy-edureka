@@ -1,5 +1,6 @@
 pipeline {
-    agent any 
+    agent any
+    def customImage 
     stages {
         stage('GIT PUll') { 
             steps {
@@ -44,7 +45,7 @@ pipeline {
              echo "Static code analysis"  
              dir('artifacts'){
                 withMaven(maven: 'mymaven') {
-                  sh 'mvn compile' 
+                 // sh 'mvn compile' 
                   sh 'mvn package'  
                
              } 
@@ -52,24 +53,32 @@ pipeline {
             }
         }
     }
-    stage('Containerize application') { 
+    stage('Build image') { 
         //agent { label 'docker' }
       steps {
              echo "Build the docker file"  
              script{
                 
                  sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
-                 def customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
+                 customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
                  echo customImage
-                 
-                 
-                 
-                 docker.withRegistry( '', DOCKERHUBLOGIN ) {
-                           customImage.push()
-                         }
+                
              }
         }
     }
+    stage('Deploy Image') { 
+        //agent { label 'docker' }
+      steps {
+             echo "Build the docker file"  
+             script{
+                 
+                 docker.withRegistry( '', DOCKERHUBLOGIN ) {
+                           customImage.push()
+                }
+             }
+        }
+    }
+
 }
     post {  
           
