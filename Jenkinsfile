@@ -74,7 +74,7 @@ pipeline {
              echo "Build the docker file"  
              script{
                  
-                 docker.withRegistry( '', DOCKERHUBLOGIN ) {
+                 docker.withRegistry( '', 'DOCKERHUBLOGIN' ) {
                            customImage.push()
                 }
              }
