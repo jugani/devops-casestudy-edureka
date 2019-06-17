@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: addbook-service
+  labels:
+    service: addbook_balancer
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80 # Container port
+    nodePort: 31344 # Host port
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: addressbook
