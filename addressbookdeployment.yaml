@@ -1,19 +1,20 @@
+     
 apiVersion: extensions/v1beta1
 kind: Deployment
-metadata: 
-  name: addressbook-deployment
-  labels:
-    env: dev
-    type: DC 
-spec:
+metadata:
+  name: addressbookdeployment
+spec: 
   replicas: 3
   template: 
     metadata:
-      labels:
+      labels: 
         app: addressbook
-    spec:
-      containers:
-      - name: addressbook-container
+    spec: 
+      containers: 
+      - name: addressbook-conatiner
         image: chandrapurnimabhatnagar/addressbook:29
         ports:
         - containerPort: 8080
+        
+        
+        
