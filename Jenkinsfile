@@ -1,33 +1,32 @@
 def customImage 
 pipeline {
-    agent any
+    agent master
+     tools {
+        maven 'Maven 3.3.9'
+    }
     
     stages {
         
         stage('GIT PUll') { 
             steps {
-                dir('artifacts'){
-                    git url: 'https://github.com/edureka-git/DevOpsClassCodes.git'
+                dir('application_code'){
+                    git url: 'https://github.com/spring-projects/spring-petclinic'
                 }
                 
             }
         }
-        stage('Test') { 
+        stage('build') { 
             steps {
-             echo "Testing"  
-             dir('artifacts'){
-                withMaven(maven: 'mymaven') 
-                {
-                  sh 'mvn test'
-                } 
-             
+             echo "Build app"  
+             dir('application_code/spring-petclinic'){
+                  sh './mvnw package' 
               }
             }
-             post {
-                always {
-                    junit '**/target/*-reports/TEST-*.xml'
+            //  post {
+            //     always {
+            //         junit '**/target/*-reports/TEST-*.xml'
 
-                }
+            //     }
            }
        }
 
