@@ -24,7 +24,7 @@ pipeline {
             steps {
              echo "Build app"  
              dir('application_code/spring-petclinic'){
-                  sh './mvnw package' 
+                  sh 'mvnw package' 
               }
             }
             //  post {
