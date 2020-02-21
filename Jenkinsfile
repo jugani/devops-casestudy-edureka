@@ -23,7 +23,7 @@ pipeline {
                 }
             steps {
              echo "Build app"  
-             dir('application_code/spring-petclinic'){
+             dir('application_code'){
                   sh 'mvn package' 
               }
             }
