@@ -1,0 +1,5 @@
+---
+- hosts: docker-vm
+  tasks:
+    - name: Print message
+      debug: msg="Hello from Ansible!!"
