@@ -1,4 +1,4 @@
-def customImage 
+
 pipeline {
     agent master
      tools {
@@ -27,9 +27,8 @@ pipeline {
             //         junit '**/target/*-reports/TEST-*.xml'
 
             //     }
-           }
-       }
-
+        }
+       
         stage('Build and Sonar cube Analysis') { 
             steps {
              echo "Static code analysis"  
@@ -40,7 +39,7 @@ pipeline {
              
             }
         }
-       }
+    }
     //     stage(' Compile & Package') { 
     //         steps {
     //          echo "Static code analysis"  
@@ -84,15 +83,15 @@ pipeline {
 
     post {  
           
-         success {  
+        success {  
              echo 'This will run only if successful'  
              mail bcc: '', body: " Build Result : Success <br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8',  mimeType: 'text/html', replyTo: '', subject: "Success CI: Project name -> ${env.JOB_NAME}", to: "cpb.95.2012@gmail.com";  
-         }  
-         failure {  
+        }  
+        failure {  
             echo " Sending mail with failure cause"
             mail bcc: '', body: "Build Result : Failure<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'shobha.bhatnagar94@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "cpb.95.2012@gmail.com";  
 
-         }  
+        }  
      }   
 }
 
