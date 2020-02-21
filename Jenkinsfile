@@ -42,44 +42,44 @@ pipeline {
             }
         }
        }
-        stage(' Compile & Package') { 
-            steps {
-             echo "Static code analysis"  
-                dir('artifacts'){
-                   withMaven(maven: 'mymaven') {
-                   sh 'mvn compile' 
-                    sh 'mvn package'  
+    //     stage(' Compile & Package') { 
+    //         steps {
+    //          echo "Static code analysis"  
+    //             dir('artifacts'){
+    //                withMaven(maven: 'mymaven') {
+    //                sh 'mvn compile' 
+    //                 sh 'mvn package'  
                
-                  }  
+    //               }  
              
-                }
-            } 
-        }
-        stage('Build image') { 
-          //agent { label 'docker' }
-        steps {
-             echo "Build the docker file"  
-             script{
+    //             }
+    //         } 
+    //     }
+    //     stage('Build image') { 
+    //       //agent { label 'docker' }
+    //     steps {
+    //          echo "Build the docker file"  
+    //          script{
                 
-                 sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
-                 customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
-                 echo customImage
+    //              sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
+    //              customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
+    //              echo customImage
                 
-             }
-        }
-    }
-    stage('Deploy Image') { 
+    //          }
+    //     }
+    // }
+    // stage('Deploy Image') { 
        
-      steps {
-             echo "Build the docker file"  
-             script{
+    //   steps {
+    //          echo "Build the docker file"  
+    //          script{
                  
-                 docker.withRegistry( '', 'DOCKERHUBLOGIN' ) {
-                           customImage.push()
-                }
-             }
-        }
-    }
+    //              docker.withRegistry( '', 'DOCKERHUBLOGIN' ) {
+    //                        customImage.push()
+    //             }
+    //          }
+    //     }
+    // }
 
 
 
