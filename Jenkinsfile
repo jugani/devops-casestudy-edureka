@@ -41,23 +41,23 @@ pipeline {
              
             }
         }
-    }
-    stage(' Compile & Package') { 
+       }
+        stage(' Compile & Package') { 
             steps {
              echo "Static code analysis"  
-             dir('artifacts'){
-                withMaven(maven: 'mymaven') {
-                  sh 'mvn compile' 
-                  sh 'mvn package'  
+                dir('artifacts'){
+                   withMaven(maven: 'mymaven') {
+                   sh 'mvn compile' 
+                    sh 'mvn package'  
                
-             } 
+                  }  
              
-            }
+                }
+            } 
         }
-    }
-    stage('Build image') { 
-        //agent { label 'docker' }
-      steps {
+        stage('Build image') { 
+          //agent { label 'docker' }
+        steps {
              echo "Build the docker file"  
              script{
                 
@@ -81,7 +81,8 @@ pipeline {
         }
     }
 
-}
+
+
     post {  
           
          success {  
