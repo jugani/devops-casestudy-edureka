@@ -1,13 +1,15 @@
 
 pipeline {
-    agent any
+    agent master
      tools {
         maven 'Maven 3.3.9'
     }
     
     stages {
-        
         stage('GIT PUll') { 
+            agent {
+                 label 'master'
+                }
             steps {
                 dir('application_code'){
                     git url: 'https://github.com/spring-projects/spring-petclinic'
@@ -16,6 +18,9 @@ pipeline {
             }
         }
         stage('build') { 
+            agent {
+                 label 'master'
+                }
             steps {
              echo "Build app"  
              dir('application_code/spring-petclinic'){
