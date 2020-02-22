@@ -27,23 +27,24 @@ pipeline {
                   sh 'mvn package' 
               }
             }
-            //  post {
-            //     always {
-            //         junit '**/target/*-reports/TEST-*.xml'
+             post {
+                success {
+                    sh 'mkdir -p /mnt/artefact'
+                    sh 'cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
-            //     }
+                }
         }
        
-        stage('Build and Sonar cube Analysis') { 
-            steps {
-             echo "Static code analysis"  
-             dir('artifacts'){
-                withMaven(maven: 'mymaven') {
-                  sh 'mvn sonar:sonar -Dsonar.projectKey=devops-casestudy -Dsonar.host.url=http://35.200.254.182:9000 -Dsonar.login=571a21bbd37e72fe471a9dd4f5953b9a226b6744'                 }
-             } 
+        // stage('Build and Sonar cube Analysis') { 
+        //     steps {
+        //      echo "Static code analysis"  
+        //      dir('artifacts'){
+        //         withMaven(maven: 'mymaven') {
+        //           sh 'mvn sonar:sonar -Dsonar.projectKey=devops-casestudy -Dsonar.host.url=http://35.200.254.182:9000 -Dsonar.login=571a21bbd37e72fe471a9dd4f5953b9a226b6744'                 }
+        //      } 
              
-            }
-        }
+        //     }
+        // }
     }
     //     stage(' Compile & Package') { 
     //         steps {
