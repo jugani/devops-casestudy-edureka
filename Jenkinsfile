@@ -29,8 +29,8 @@ pipeline {
             }
              post {
                 success {
-                    sh 'mkdir -p /mnt/artefact'
-                    sh 'cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
+                    sh 'sudo mkdir -p /mnt/artefact'
+                    sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
                 }
             }   
