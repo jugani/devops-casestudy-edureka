@@ -33,6 +33,7 @@ pipeline {
                     sh 'cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
                 }
+            }   
         }
        
         // stage('Build and Sonar cube Analysis') { 
