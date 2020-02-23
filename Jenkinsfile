@@ -37,6 +37,9 @@ pipeline {
         }
        
         stage('Invoke ansible script') { 
+            agent {
+                 label 'master'
+                }
             steps {
                echo "invoke the playbook"  
                dir('artifacts'){
