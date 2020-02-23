@@ -36,16 +36,15 @@ pipeline {
             }   
         }
        
-        // stage('Build and Sonar cube Analysis') { 
-        //     steps {
-        //      echo "Static code analysis"  
-        //      dir('artifacts'){
-        //         withMaven(maven: 'mymaven') {
-        //           sh 'mvn sonar:sonar -Dsonar.projectKey=devops-casestudy -Dsonar.host.url=http://35.200.254.182:9000 -Dsonar.login=571a21bbd37e72fe471a9dd4f5953b9a226b6744'                 }
-        //      } 
+        stage('Invoke ansible script') { 
+            steps {
+               echo "invoke the playbook"  
+               dir('artifacts'){
+               sh 'ansible-playbook -i inventory ee-playbook.yml'
+               }  
              
-        //     }
-        // }
+            }
+        }
     }
     //     stage(' Compile & Package') { 
     //         steps {
