@@ -17,24 +17,24 @@ pipeline {
                 
             }
         }
-        stage('build') { 
-            agent {
-                 label 'master'
-                }
-            steps {
-             echo "Build app"  
-             dir('application_code'){
-                  sh 'mvn package' 
-              }
-            }
-             post {
-                success {
-                    sh 'sudo mkdir -p /mnt/artefact'
-                    sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
+        // stage('build') { 
+        //     agent {
+        //          label 'master'
+        //         }
+        //     steps {
+        //      echo "Build app"  
+        //      dir('application_code'){
+        //           sh 'mvn package' 
+        //       }
+        //     }
+        //      post {
+        //         success {
+        //             sh 'sudo mkdir -p /mnt/artefact'
+        //             sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
-                }
-            }   
-        }
+        //         }
+        //     }   
+        // }
        
         stage('Invoke ansible script') { 
             agent {

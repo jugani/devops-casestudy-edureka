@@ -4,6 +4,8 @@
   remote_user: root
   gather_facts: true
   tasks:
+    - name: remote_user
+      shell: whoami
     - name: create artefact dir in remote host
       shell: mkdir -p /mnt/artefact 
     - name: copy artefact to docker_vm
