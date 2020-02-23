@@ -42,9 +42,8 @@ pipeline {
                 }
             steps {
                echo "invoke the playbook"  
-               dir('artifacts'){
                sh 'ansible-playbook -i inventory ee-playbook.yml'
-               }  
+               
              
             }
         }
