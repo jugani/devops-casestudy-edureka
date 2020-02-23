@@ -42,7 +42,7 @@ pipeline {
                 }
             steps {
                echo "invoke the playbook"  
-               sh 'ansible-playbook -i inventory ee-playbook.yaml'
+               sh 'ansible-playbook -i inventory ee-playbook.yaml -vvv'
                
              
             }
