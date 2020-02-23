@@ -12,5 +12,6 @@
       copy: 
         src: /mnt/artefact/*.jar
         dest: /mnt/artefact 
+        sudo: true
  
 ...      
