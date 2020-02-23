@@ -4,10 +4,11 @@
   remote_user: root
   gather_facts: true
   tasks:
+    - name: create artefact dir in remote host
+      shell: mkdir -p /mnt/artefact 
     - name: copy artefact to docker_vm
       copy: 
         src: /mnt/artefact/*.jar
         dest: /mnt/artefact 
-    - name: create artefact dir in remote host
-      shell: mkdir -p /mnt/artefact  
+ 
 ...      
