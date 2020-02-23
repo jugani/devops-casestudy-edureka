@@ -10,7 +10,7 @@
       shell: mkdir -p /mnt/artefact 
     - name: copy artefact to docker_vm
       copy: 
-        remote_src: /mnt/artefact/*.jar
+        src: /mnt/artefact/*.jar
         dest: /mnt/artefact 
         sudo: true
  
