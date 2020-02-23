@@ -1,7 +1,7 @@
 ---
 - name: Play
   hosts: docker
-  remote_user: root
+  become: true
   gather_facts: true
   tasks:
     - name: remote_user
