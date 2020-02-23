@@ -10,7 +10,7 @@
       shell: mkdir -p /mnt/artefact 
     - name: copy artefact to docker_vm
       copy: 
-        src: /mnt/artefact/*.jar
+        src: /mnt/artefact/spring-petclinic-2.2.0.BUILD-SNAPSHOT.jar
         dest: /mnt/artefact/spring-petclinic-2.2.0.BUILD-SNAPSHOT.jar 
  
 ...      
