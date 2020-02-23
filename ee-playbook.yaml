@@ -1,7 +1,7 @@
 ---
 - name: Play
   hosts: docker
-  remote_user: docker
+  remote_user: root
   gather_facts: true
   tasks:
     - name: copy artefact to docker_vm
