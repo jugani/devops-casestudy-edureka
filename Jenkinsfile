@@ -52,10 +52,12 @@ pipeline {
                  label 'worker'
                 }
             steps {
-              dir('/mnt/artefact'){
-                  sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
-                  sh 'sudo docker images'
-                }
+
+                 sh 'pwd'
+                 sh 'ls -lrt'
+                // sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
+                // sh 'sudo docker images'
+                
                
              
             }
