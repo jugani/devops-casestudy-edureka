@@ -53,8 +53,8 @@ pipeline {
                 }
             steps {
               dir('/mnt/artefact'){
-                  sh 'docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
-                  sh 'docker images'
+                  sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
+                  sh 'sudo docker images'
                 }
                
              
