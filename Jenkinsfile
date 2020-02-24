@@ -6,47 +6,47 @@ pipeline {
     }
     
     stages {
-        stage('GIT PUll') { 
-            agent {
-                 label 'master'
-                }
-            steps {
-                dir('application_code'){
-                    git url: 'https://github.com/spring-projects/spring-petclinic'
-                }
+        // stage('GIT PUll') { 
+        //     agent {
+        //          label 'master'
+        //         }
+        //     steps {
+        //         dir('application_code'){
+        //             git url: 'https://github.com/spring-projects/spring-petclinic'
+        //         }
                 
-            }
-        }
-        stage('build') { 
-            agent {
-                 label 'master'
-                }
-            steps {
-             echo "Build app"  
-             dir('application_code'){
-                  sh 'mvn package' 
-              }
-            }
-             post {
-                success {
-                    sh 'sudo mkdir -p /mnt/artefact'
-                    // delete from mnt/artefact if any
-                    sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
+        //     }
+        // }
+        // stage('build') { 
+        //     agent {
+        //          label 'master'
+        //         }
+        //     steps {
+        //      echo "Build app"  
+        //      dir('application_code'){
+        //           sh 'mvn package' 
+        //       }
+        //     }
+        //      post {
+        //         success {
+        //             sh 'sudo mkdir -p /mnt/artefact'
+        //             // delete from mnt/artefact if any
+        //             sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
-                } 
-            }   
-        }
-        stage('Invoke ansible script') { 
-            agent {
-                 label 'master'
-                }
-            steps {
-               echo "invoke the playbook"  
-               sh 'ansible-playbook -i inventory ee-playbook.yaml -vvv'
+        //         } 
+        //     }   
+        // }
+        // stage('Invoke ansible script') { 
+        //     agent {
+        //          label 'master'
+        //         }
+        //     steps {
+        //        echo "invoke the playbook"  
+        //        sh 'ansible-playbook -i inventory ee-playbook.yaml -vvv'
                
              
-            }
-        }
+        //     }
+        // }
         stage('Build docker Image') { 
             agent {
                  label 'worker'
