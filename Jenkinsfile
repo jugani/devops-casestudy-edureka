@@ -24,7 +24,12 @@ pipeline {
             steps {
              echo "Build app"  
              dir('application_code'){
-                  sh 'mvn package' 
+                 withMaven(maven: 'Maven 3.3.9') 
+                {
+                  sh 'mvn package'
+                } 
+             
+                   
               }
             }
              post {
@@ -72,23 +77,7 @@ pipeline {
             }  
         }
     }
-    //     stage(' Compile & Package') { 
-    //         steps {
-    //          echo "Static code analysis"  
-    //             dir('artifacts'){
-    //                withMaven(maven: 'mymaven') {
-    //                sh 'mvn compile' 
-    //                 sh 'mvn package'  
-               
-    //               }  
-             
-    //             }
-    //         } 
-    //     }
-    
-
-
-
+ 
 
     // post {  
           
