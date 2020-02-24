@@ -4,13 +4,14 @@
   become: true
   gather_facts: true
   tasks:
-    - name: remote_user
-      shell: echo `whoami`
     - name: create artefact dir in remote host
       shell: mkdir -p /mnt/artefact 
     - name: copy artefact to docker_vm
       copy: 
         src: /mnt/artefact/spring-petclinic-2.2.0.BUILD-SNAPSHOT.jar
         dest: /mnt/artefact/spring-petclinic-2.2.0.BUILD-SNAPSHOT.jar 
- 
+    - name: copy Dockerfile to docker_vm
+      copy: 
+        src: ./Dockerfile
+        dest: /mnt/artefact/Dockerfile 
 ...      
