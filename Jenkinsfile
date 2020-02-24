@@ -55,7 +55,6 @@ pipeline {
                 
                  sh 'cp /mnt/artefact/*jar $WORKSPACE'
                  customImage = docker.build("chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER}")
-                //  echo customImage
                 
                 }
             }
@@ -67,8 +66,7 @@ pipeline {
                 script{
                   sh ' echo Hello'
                   docker.withRegistry( 'https://registry.hub.docker.com', 'DOCKERHUBLOGIN' ) {
-                           sh 'echo inwith registry'
-                           //customImage.push()
+                           customImage.push()
                      }
                 }
             }  
