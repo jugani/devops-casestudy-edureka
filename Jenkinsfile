@@ -65,9 +65,10 @@ pipeline {
             steps {
                echo "Build the docker file"  
                 script{
-                 
+                  sh ' echo Hello'
                   docker.withRegistry( 'https://index.docker.io/', 'DOCKERHUBLOGIN' ) {
-                           customImage.push()
+                           sh 'echo inwith registry'
+                           //customImage.push()
                      }
                 }
             }  
