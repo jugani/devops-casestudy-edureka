@@ -72,7 +72,7 @@ pipeline {
                 }
             }  
         }
-
+    }
     //     stage(' Compile & Package') { 
     //         steps {
     //          echo "Static code analysis"  
