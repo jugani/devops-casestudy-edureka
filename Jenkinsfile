@@ -55,7 +55,8 @@ pipeline {
 
                  sh 'pwd'
                  sh 'ls -lrt'
-                // sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
+                 sh 'cp /mnt/artefact/*jar $WORKSPACE'
+                 sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
                 // sh 'sudo docker images'
                 
                
