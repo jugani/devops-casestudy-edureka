@@ -30,6 +30,7 @@ pipeline {
              post {
                 success {
                     sh 'sudo mkdir -p /mnt/artefact'
+                    // delete from mnt/artefact if any
                     sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
 
                 } 
@@ -46,6 +47,19 @@ pipeline {
              
             }
         }
+        stage('Build docker Image') { 
+            agent {
+                 label 'worker'
+                }
+            steps {
+              dir('/mnt/artefact'){
+                  sh 'docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
+                  sh 'docker images'
+                }
+               
+             
+            }
+        }        
     }
     //     stage(' Compile & Package') { 
     //         steps {
