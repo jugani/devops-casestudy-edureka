@@ -6,64 +6,73 @@ pipeline {
     }
     
     stages {
-        // stage('GIT PUll') { 
-        //     agent {
-        //          label 'master'
-        //         }
-        //     steps {
-        //         dir('application_code'){
-        //             git url: 'https://github.com/spring-projects/spring-petclinic'
-        //         }
-                
-        //     }
-        // }
-        // stage('build') { 
-        //     agent {
-        //          label 'master'
-        //         }
-        //     steps {
-        //      echo "Build app"  
-        //      dir('application_code'){
-        //           sh 'mvn package' 
-        //       }
-        //     }
-        //      post {
-        //         success {
-        //             sh 'sudo mkdir -p /mnt/artefact'
-        //             // delete from mnt/artefact if any
-        //             sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
-
-        //         } 
-        //     }   
-        // }
-        // stage('Invoke ansible script') { 
-        //     agent {
-        //          label 'master'
-        //         }
-        //     steps {
-        //        echo "invoke the playbook"  
-        //        sh 'ansible-playbook -i inventory ee-playbook.yaml -vvv'
-               
-             
-        //     }
-        // }
-        stage('Build docker Image') { 
+        stage('GIT PUll') { 
             agent {
-                 label 'worker'
+                 label 'master'
                 }
             steps {
-
-                 sh 'pwd'
-                 sh 'ls -lrt'
-                 sh 'cp /mnt/artefact/*jar $WORKSPACE'
-                 sh 'sudo docker build -t chandrapurnimabhatnagar/angularapp:v1 .'
-                // sh 'sudo docker images'
+                dir('application_code'){
+                    git url: 'https://github.com/spring-projects/spring-petclinic'
+                }
                 
+            }
+        }
+        stage('build') { 
+            agent {
+                 label 'master'
+                }
+            steps {
+             echo "Build app"  
+             dir('application_code'){
+                  sh 'mvn package' 
+              }
+            }
+             post {
+                success {
+                    sh 'sudo mkdir -p /mnt/artefact'
+                    // delete from mnt/artefact if any
+                    sh 'sudo cp $WORKSPACE/application_code/target/*.jar  /mnt/artefact'
+
+                } 
+            }   
+        }
+        stage('Invoke ansible script') { 
+            agent {
+                 label 'master'
+                }
+            steps {
+               echo "invoke the playbook"  
+               sh 'ansible-playbook -i inventory ee-playbook.yaml -vvv'
                
              
             }
-        }        
-    }
+        }
+        stage('Build image') { 
+            agent { label 'worker' }
+            steps {
+               echo "Build the docker file"  
+               script{
+                
+                 sh 'cp /mnt/artefact/*jar $WORKSPACE'
+                 customImage = docker.build("chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER}")
+                 echo customImage
+                
+                }
+            }
+        }
+        stage('Deploy Image') { 
+       
+            steps {
+               echo "Build the docker file"  
+                script{
+                 
+                  docker.withRegistry( 'https://index.docker.io/', 'DOCKERHUBLOGIN' ) {
+                           customImage.push()
+                     }
+                }
+            }  
+        }
+
     //     stage(' Compile & Package') { 
     //         steps {
     //          echo "Static code analysis"  
@@ -77,31 +86,8 @@ pipeline {
     //             }
     //         } 
     //     }
-    //     stage('Build image') { 
-    //       //agent { label 'docker' }
-    //     steps {
-    //          echo "Build the docker file"  
-    //          script{
-                
-    //              sh 'cp ${JENKINS_HOME}/workspace/${JOB_NAME}/artifacts/target/addressbook.war .'
-    //              customImage = docker.build("chandrapurnimabhatnagar/addressbook:${BUILD_NUMBER}")
-    //              echo customImage
-                
-    //          }
-    //     }
-    // }
-    // stage('Deploy Image') { 
-       
-    //   steps {
-    //          echo "Build the docker file"  
-    //          script{
-                 
-    //              docker.withRegistry( '', 'DOCKERHUBLOGIN' ) {
-    //                        customImage.push()
-    //             }
-    //          }
-    //     }
-    // }
+    
+
 
 
 
