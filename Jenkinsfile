@@ -61,7 +61,7 @@ pipeline {
             }
         }
         stage('Deploy Image') { 
-       
+            agent { label 'worker' } 
             steps {
                echo "Build the docker file"  
                 script{
