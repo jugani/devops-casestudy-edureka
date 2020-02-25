@@ -80,6 +80,8 @@ pipeline {
                 script{
                   sh "docker run --name testcontainer-${BUILD_NUMBER} -d chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER} "
                   sh 'docker ps -a'
+                  sh "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' testcontainer-${BUILD_NUMBER}"
+                  sh "docker inspect testcontainer-${BUILD_NUMBER}"
                 }
             }  
         }       
