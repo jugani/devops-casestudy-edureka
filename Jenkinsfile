@@ -78,7 +78,7 @@ pipeline {
             steps {
                echo "Build the docker file"  
                 script{
-                  sh "docker run --name testcontainer:${BUILD_NUMBER} -d chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER} "
+                  sh "docker run --name testcontainer-${BUILD_NUMBER} -d chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER} "
                   sh 'docker ps -a'
                 }
             }  
