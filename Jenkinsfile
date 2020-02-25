@@ -1,11 +1,8 @@
 
 pipeline {
     agent none
-     tools {
-        maven 'Maven 3.3.9'
-    }
     
-    stages {
+   stages {
         stage('GIT PUll') { 
             agent {
                  label 'master'
@@ -76,6 +73,16 @@ pipeline {
                 }
             }  
         }
+        stage('run conatiner') { 
+            agent { label 'worker' } 
+            steps {
+               echo "Build the docker file"  
+                script{
+                  sh "docker run --name testcontainer:${BUILD_NUMBER} -d chandrapurnimabhatnagar/angularapp:${BUILD_NUMBER} "
+                  sh 'docker ps -a'
+                }
+            }  
+        }       
     }
  
 
